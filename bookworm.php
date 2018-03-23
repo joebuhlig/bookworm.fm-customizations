@@ -143,7 +143,9 @@ function bookworm_post_class_meta_box( $object, $box ) { ?>
 function bookworm_book_status_meta_box( $object, $box ) { ?>
 
   <?php wp_nonce_field( basename( __FILE__ ), 'bookworm_nonce' ); ?>
-
+  <label for="bookworm-amazon-link"><?php _e( "Amazon Link", 'example' ); ?></label>
+    <br />
+    <input class="widefat" type="text" name="bookworm-amazon-link" id="bookworm-amazon-link" value="<?php echo esc_attr( get_post_meta( $object->ID, 'bookworm_amazon_link', true ) ); ?>" size="30" />
   <p>
     <select class="widefat" name="bookworm-book-status" id="bookworm-book-status"><?php
   $bookworm_book_status = get_post_meta( $object->ID, 'bookworm_book_status', true);
@@ -280,7 +282,8 @@ function booklist_planned_func (){
       $i++;
     }
     if ($status == "Planned"){
-      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . '</p>';
+      $amazon = get_post_meta($id, 'bookworm_amazon_link', true);
+      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . ' (<a href="' . $amazon . '">Amazon</a>)</p>';
     }
   endwhile;
   return $booklist;
