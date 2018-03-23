@@ -4,7 +4,7 @@
  * Plugin URI: http://bookworm.fm
  * GitHub Plugin URI: https://github.com/joebuhlig/bookworm.fm-customizations
  * Description: This plugin adds some custom abilities for Bookworm.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: Joe Buhlig
  * Author URI: http://joebuhlig.com
  * License: GPL2
@@ -253,10 +253,10 @@ function booklist_func (){
       }
       $i++;
     }
-    $amazon = get_post_meta($post_id, 'bookworm_amazon_link', true);
+    $amazon = get_post_meta($book_id, 'bookworm_amazon_link', true);
     $link = get_permalink($post_id);
-    $title = get_the_title($post_id);
-    $booklist .= '<p><a href="' . $link . '">' . $title . '</a> (<a href="' . $amazon . '">Amazon</a>)</p>';
+    $title = get_the_title($book_id);
+    $booklist .= '<p><strong><a href="' . $link . '">' . get_post_field( 'post_name', $post_id ) . ':</a> ' . $title . '</strong> by ' . $authors . ' - <a href="' . $amazon . '">Amazon</a></p>';
   endwhile;
   return $booklist;
 }
@@ -283,7 +283,7 @@ function booklist_planned_func (){
     }
     if ($status == "Planned"){
       $amazon = get_post_meta($id, 'bookworm_amazon_link', true);
-      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . ' (<a href="' . $amazon . '">Amazon</a>)</p>';
+      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . ' - <a href="' . $amazon . '">Amazon</a></p>';
     }
   endwhile;
   return $booklist;
@@ -309,7 +309,8 @@ function booklist_recommended_func (){
       $i++;
     }
     if ($status == "Recommended"){
-      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . '</p>';
+      $amazon = get_post_meta($id, 'bookworm_amazon_link', true);
+      $booklist .= '<p><strong>' . get_the_title() . '</strong> by ' . $authors . ' - <a href="' . $amazon . '">Amazon</a></p>';
     }
   endwhile;
   return $booklist;
