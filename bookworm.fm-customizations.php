@@ -4,7 +4,7 @@
  * Plugin URI: http://bookworm.fm
  * GitHub Plugin URI: https://github.com/joebuhlig/bookworm.fm-customizations
  * Description: This plugin adds some custom abilities for Bookworm.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Joe Buhlig
  * Author URI: http://joebuhlig.com
  * License: GPL2
@@ -123,9 +123,6 @@ function bookworm_post_class_meta_box( $object, $box ) { ?>
     <label for="bookworm-joe-rating"><?php _e( "Joe's Rating", 'example' ); ?></label>
     <br />
     <input class="widefat" type="text" name="bookworm-joe-rating" id="bookworm-joe-rating" value="<?php echo esc_attr( get_post_meta( $object->ID, 'bookworm_joe_rating', true ) ); ?>" size="30" />
-    <label for="bookworm-amazon-link"><?php _e( "Amazon Link", 'example' ); ?></label>
-    <br />
-    <input class="widefat" type="text" name="bookworm-amazon-link" id="bookworm-amazon-link" value="<?php echo esc_attr( get_post_meta( $object->ID, 'bookworm_amazon_link', true ) ); ?>" size="30" />
     <label for="bookworm-book-id"><?php _e( "Book", 'example' ); ?></label>
     <br /><?php
     $bookworm_book_id = get_post_meta( $object->ID, 'bookworm_book_id', true);
@@ -134,7 +131,7 @@ function bookworm_post_class_meta_box( $object, $box ) { ?>
     <select class="widefat" name="bookworm-book-id" id="bookworm-book-id">
       <option value="null">Select a Book</option>
       <?php foreach ( $books as $book ) : setup_postdata($book); ?>
-          <option id="<?php $bookID = $book->ID; echo $bookID; ?>" value="<?php $bookTitle = $book->post_title; echo $bookTitle; ?>" <?php if($bookID == $bookworm_book_id) echo "selected='selected'";?>><?php echo $bookTitle; ?></option>
+          <option id="<?php $bookID = $book->ID; echo $bookID; ?>" value="<?php $bookTitle = $book->post_title; echo $bookID; ?>" <?php if($bookID == $bookworm_book_id) echo "selected='selected'";?>><?php echo $bookTitle; ?></option>
       <?php endforeach; ?>
     </select>
   </p>
@@ -269,7 +266,7 @@ function booklist_planned_func (){
   while ( $loop->have_posts() ) : $loop->the_post();
     $id = get_the_ID();
     $status = get_post_meta($id, 'bookworm_book_status', true);
-    $terms = get_the_terms( $post, 'authors' );
+    $terms = get_the_terms( $id, 'authors' );
     $authors = "";
     $i = 0;
     foreach ( $terms as $term ) {
@@ -296,7 +293,7 @@ function booklist_recommended_func (){
   while ( $loop->have_posts() ) : $loop->the_post();
     $id = get_the_ID();
     $status = get_post_meta($id, 'bookworm_book_status', true);
-    $terms = get_the_terms( $post, 'authors' );
+    $terms = get_the_terms( $id, 'authors' );
     $authors = "";
     $i = 0;
     foreach ( $terms as $term ) {
