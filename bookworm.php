@@ -4,7 +4,7 @@
  * Plugin URI: http://bookworm.fm
  * GitHub Plugin URI: https://github.com/joebuhlig/bookworm.fm-customizations
  * Description: This plugin adds some custom abilities for Bookworm.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Joe Buhlig
  * Author URI: http://joebuhlig.com
  * License: GPL2
