@@ -4,7 +4,7 @@
  * Plugin URI: http://bookworm.fm
  * GitHub Plugin URI: https://github.com/joebuhlig/bookworm.fm-customizations
  * Description: This plugin adds some custom abilities for Bookworm.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Joe Buhlig
  * Author URI: http://joebuhlig.com
  * License: GPL2
@@ -310,14 +310,12 @@ function update_bookworm_meta($post_id, $meta_key, $new_meta_value)
   /* If a new meta value was added and there was no previous value, add it. */
   if ($new_meta_value && "" == $meta_value) {
     add_post_meta($post_id, $meta_key, $new_meta_value, true);
-  }
-  /* If the new meta value does not match the old value, update it. */ elseif (
+  } /* If the new meta value does not match the old value, update it. */ elseif (
     $new_meta_value &&
     $new_meta_value != $meta_value
   ) {
     update_post_meta($post_id, $meta_key, $new_meta_value);
-  }
-  /* If there is no new meta value but an old value exists, delete it. */ elseif (
+  } /* If there is no new meta value but an old value exists, delete it. */ elseif (
     "" == $new_meta_value &&
     $meta_value
   ) {
@@ -464,3 +462,23 @@ function booklist_recommended_func()
 add_shortcode("booklist", "booklist_func");
 add_shortcode("booklist-planned", "booklist_planned_func");
 add_shortcode("booklist-recommended", "booklist_recommended_func");
+
+add_action("init", "proRSS");
+function proRSS()
+{
+  add_feed("pro", "proRSSFunc");
+}
+function proRSSFunc()
+{
+  get_template_part("feed", "pro");
+}
+
+add_action("init", "bootlegRSS");
+function bootlegRSS()
+{
+  add_feed("pro", "bootlegRSSFunc");
+}
+function bootlegRSSFunc()
+{
+  get_template_part("feed", "bootleg");
+}
