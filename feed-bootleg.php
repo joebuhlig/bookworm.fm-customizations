@@ -117,7 +117,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n"; 
   <?php do_action('rss2_ns'.$FeedActionHook); ?>
 >
 <channel>
-  <title><?php if( version_compare($GLOBALS['wp_version'], 4.4, '<' ) ) { bloginfo_rss('name'); } wp_title_rss(); ?></title>
+  <title>Bookworm - Bootleg</title>
   <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
   <link><?php bloginfo_rss('url') ?></link>
   <description><?php bloginfo_rss("description") ?></description>
