@@ -470,7 +470,7 @@ function proRSS()
 add_action("init", "proRSS");
 function proRSSFunc()
 {
-  get_template_part("feed", "pro");
+  load_template(plugin_dir_path(__FILE__) . "feed-pro.php");
 }
 
 function bootlegRSS()
@@ -480,5 +480,5 @@ function bootlegRSS()
 add_action("init", "bootlegRSS");
 function bootlegRSSFunc()
 {
-  get_template_part("feed", "bootleg");
+  load_template(plugin_dir_path(__FILE__) . "feed-bootleg.php");
 }

@@ -177,7 +177,20 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n"; 
     <?php
     }
     ?>
-<?php rss_enclosure(); ?>
+<?php
+$MetaData = get_post_meta(get_the_ID(), 'enclosure', true);
+$MetaParts = explode("\n", $MetaData, 4);
+$main = trim($MetaParts[0]);
+$bootleg = esc_attr(get_post_meta(get_the_ID(), "bookworm_bootleg_episode", true));
+if (!empty($bootleg)) {
+  ob_start();
+  rss_enclosure();
+  $enclosure = ob_get_clean();
+  echo str_replace($main, $bootleg, $enclosure);
+} else {
+  rss_enclosure();
+}
+?>
   <?php do_action('rss2_item'.$FeedActionHook); ?>
   <?php
   if( $iTunesOrderNumber > 0 )
@@ -224,7 +237,20 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'."\n"; 
     <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
     <guid isPermaLink="false"><?php the_guid(); ?></guid>
     <description><?php echo powerpress_format_itunes_value( powerpress_get_the_excerpt_rss( !empty($GeneralSettings['feed_accel']) ), 'description' ); ?></description>
-<?php rss_enclosure(); ?>
+<?php
+$MetaData = get_post_meta(get_the_ID(), 'enclosure', true);
+$MetaParts = explode("\n", $MetaData, 4);
+$main = trim($MetaParts[0]);
+$bootleg = esc_attr(get_post_meta(get_the_ID(), "bookworm_bootleg_episode", true));
+if (!empty($bootleg)) {
+  ob_start();
+  rss_enclosure();
+  $enclosure = ob_get_clean();
+  echo str_replace($main, $bootleg, $enclosure);
+} else {
+  rss_enclosure();
+}
+ ?>
   <?php do_action('rss2_item'.$FeedActionHook); ?>
   <?php
   echo "\t<itunes:order>";
