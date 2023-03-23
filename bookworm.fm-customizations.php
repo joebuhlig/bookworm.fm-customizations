@@ -472,13 +472,3 @@ function proRSSFunc()
 {
   load_template(plugin_dir_path(__FILE__) . "feed-pro.php");
 }
-
-function bootlegRSS()
-{
-  add_feed("bootleg", "bootlegRSSFunc");
-}
-add_action("init", "bootlegRSS");
-function bootlegRSSFunc()
-{
-  load_template(plugin_dir_path(__FILE__) . "feed-bootleg.php");
-}
